@@ -6,6 +6,6 @@ script:
 - KITCHEN_YAML=.kitchen.docker.yml bundle exec kitchen test
 deploy:
   provider: script
-  script: openssl aes-256-cbc -K $encrypted_2b6f287e5e5d_key -iv $encrypted_2b6f287e5e5d_iv -in .supermarket.pem.enc -out .supermarket.pem -d && bundle exec stove login --username meringu --key .supermarket.pem && bundle exec stove --no-git
+  script: openssl aes-256-cbc -K $encrypted_ebb3f4d10caf_key -iv $encrypted_ebb3f4d10caf_iv -in .supermarket.pem.enc -out .supermarket.pem -d && bundle exec stove login --username meringu --key .supermarket.pem && bundle exec stove --no-git
   on:
     tags: true
