@@ -1,30 +1,16 @@
 ---
 driver:
   name: docker
-  use_sudo: false
 
 provisioner:
   name: chef_solo
 
 platforms:
   - name: ubuntu-14.04
-  - name: centos-7.2
 
 suites:
   - name: install
     run_list:
-      - recipe[code_deploy::install_agent]
-  - name: install_and_start
-    run_list:
-      - recipe[code_deploy::install_and_start_agent]
-  - name: uninstall
-    run_list:
-      - recipe[code_deploy::install_agent]
-      - recipe[code_deploy_test::uninstall_agent]
-  - name: reinstall
-    run_list:
-      - recipe[code_deploy::install_agent]
-      - recipe[code_deploy_test::uninstall_agent]
       - recipe[code_deploy::install_agent]
 
 verifier:
