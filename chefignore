@@ -1,1 +1,6 @@
 .kitchen
+*.lock
+*.pem
+.gitignore
+/*.yml
+/test/
