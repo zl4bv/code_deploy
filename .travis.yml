@@ -6,9 +6,6 @@ script:
 - KITCHEN_YAML=.kitchen.docker.yml bundle exec kitchen test
 deploy:
   provider: script
-  script: rvm $TRAVIS_RUBY_VERSION do $(echo $SUPERMARKET_PEM > supermarket.pem && bundle exec stove login --username meringu --key supermarket.pem && bundle exec stove --no-git)
+  script: openssl aes-256-cbc -K $encrypted_2b6f287e5e5d_key -iv $encrypted_2b6f287e5e5d_iv -in .supermarket.pem.enc -out .supermarket.pem -d && rvm $TRAVIS_RUBY_VERSION do $(bundle exec stove login --username meringu --key .supermarket.pem && bundle exec stove --no-git)
   on:
     tags: true
-env:
-  global:
-    secure: hmuSxRufEwohSU//xkcM1mJb3x5In7Qoljmjj3djpSXmuEcQuqEfVLSoe0vg7qgnBioHAUji992KxpwWm/HVT06lbdGD5RTvl8suLvVRyysUz/8sCfBo7uiPD3CN5Y4i//irdGJEVWUdFPQFWkkxq4Vmr+xWoMThC25xI00jUS+I5xGvjmkCqcmmsVkouOld111fBF2nb8nh04tH1QSczbBGdlAZoLM/fLMn25Z9A5G7PUKL2IS3gDRHqMskaHqZ92dT896JvnT9OAs+Klg6g66LMl56/YykZb0jUijqMmG2nkxsyGMmC+EgkogRhJH7H9ViNgVK106ZuQQ3QtOLnVhmVtw5xsYRzLYwyZSx0Ff15JYlHTQwClXkmCR3UE2UPtSLt0XWwyJrzX1dBNG32u28Aqp/ycEYKTv8VmpWWjsbUICnvVeuc5HjHSHqSTWCFfG6LJ1ZltGn7MPKdu5fuZxw66Pj2ufClRcYJwF+uKfT1tKsKDPii92c4YNflTxIU535UjySMXnhwjg/uRyrrYTjJuST1vJl4XUa7RahWhl95Vfbo5CB0/2TSxQZvpnjhtem6Ud4NoESeWDvU8JhnjJY0GbsWEuUXR9/XFUMoIqT1g1Uvj7kn6Jbc2IoQ21vdtGisSJpKRDYtiYNno8PJf44pHJ8mAYUI+wmpvrbZcU=
