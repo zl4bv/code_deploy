@@ -6,7 +6,7 @@ script:
 - KITCHEN_YAML=.kitchen.docker.yml bundle exec kitchen test
 deploy:
   provider: script
-  script: rvm $TRAVIS_RUBY_VERSION do $(echo $SUPERMARKET_PEM > supermarket.pem && bundle exec stove login --username meringu --key supermarket.pem && bundle exec stove ---no-git)
+  script: rvm $TRAVIS_RUBY_VERSION do $(echo $SUPERMARKET_PEM > supermarket.pem && bundle exec stove login --username meringu --key supermarket.pem && bundle exec stove --no-git)
   on:
     tags: true
 env:
