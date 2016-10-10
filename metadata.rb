@@ -12,3 +12,5 @@ supports         'ubuntu'
 
 source_url 'https://github.com/meringu/code_deploy' if respond_to?(:source_url)
 issues_url 'https://github.com/meringu/code_deploy/issues' if respond_to?(:issues_url)
+
+depends 'apt'
