@@ -76,6 +76,7 @@ end
 def install_ruby
   case node['platform_family']
   when 'debian'
+    include_recipe 'apt'
     package 'ruby2.0'
   when 'rhel'
     package 'ruby'
