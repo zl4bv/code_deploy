@@ -106,6 +106,7 @@ action :install do
 
   service service_name do
     action [:disable, :stop]
+    retries 2
   end
 end
 
@@ -114,6 +115,7 @@ action :install_and_start do
 
   service service_name do
     action [:enable, :start]
+    retries 2
   end
 end
 
@@ -140,6 +142,7 @@ end
   action a do
     service service_name do
       action a
+      retries 2
     end
   end
 end
