@@ -92,6 +92,7 @@ def install_code_deploy_agent
   remote_file installer_path do
     source installer_url
     mode '0755'
+    sensitive true
     not_if { up_to_date }
   end
 
