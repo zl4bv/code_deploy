@@ -93,6 +93,7 @@ def install_code_deploy_agent
   remote_file installer_path do
     source installer_url
     mode '0755'
+    sensitive true
     not_if { up_to_date }
   end
 
@@ -106,6 +107,7 @@ action :install do
 
   service service_name do
     action [:disable, :stop]
+    retries 2
   end
 end
 
@@ -114,6 +116,7 @@ action :install_and_start do
 
   service service_name do
     action [:enable, :start]
+    retries 2
   end
 end
 
@@ -140,6 +143,7 @@ end
   action a do
     service service_name do
       action a
+      retries 2
     end
   end
 end
