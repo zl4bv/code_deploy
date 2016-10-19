@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/meringu/code_deploy.svg?branch=master)](https://travis-ci.org/meringu/code_deploy)
+[![Cookbook](https://img.shields.io/cookbook/v/code_deploy.svg)](https://supermarket.chef.io/cookbooks/code_deploy)
 
 # CodeDeploy cookbook
 
