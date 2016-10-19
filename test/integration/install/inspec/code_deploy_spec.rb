@@ -11,4 +11,8 @@ control 'CodeDeploy' do
     it { should_not be_enabled }
     it { should_not be_running }
   end
+
+  describe file('/etc/cron.d/codedeploy-agent-update') do
+    it { should_not exist }
+  end
 end
