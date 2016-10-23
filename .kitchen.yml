@@ -18,13 +18,10 @@ suites:
       - recipe[code_deploy::install_and_start_agent]
   - name: uninstall
     run_list:
-      - recipe[code_deploy::install_agent]
       - recipe[code_deploy_test::uninstall_agent]
   - name: reinstall
     run_list:
-      - recipe[code_deploy::install_agent]
-      - recipe[code_deploy_test::uninstall_agent]
-      - recipe[code_deploy::install_agent]
+      - recipe[code_deploy::reinstall_agent]
 
 verifier:
   name: inspec
