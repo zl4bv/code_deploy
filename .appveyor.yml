@@ -1,0 +1,26 @@
+---
+environment:
+  winrm_user: test_user
+  winrm_pass: Pass@word1
+  winrm_port: 5985
+  matrix:
+    - suite: install-windows
+    - suite: install-and-start-windows
+    - suite: uninstall-windows
+    # TODO: suspect we need to reboot to avoid msiexec.exe 1603 exit code
+    # - suite: reinstall-windows
+
+install:
+  - net user /add %winrm_user% %winrm_pass%
+  - net localgroup administrators %winrm_user% /add
+  - choco install -y chefdk
+  - refreshenv
+  - set KITCHEN_YAML=.kitchen.appveyor.yml
+  - chef exec bundle
+
+build: off
+
+test_script:
+  - chef exec kitchen test %suite%
+
+deploy: off

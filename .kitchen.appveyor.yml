@@ -1,0 +1,33 @@
+---
+driver:
+  name: local
+
+platforms:
+  - name: windows
+
+transport:
+  name: winrm
+  hostname: localhost
+  username: <%= ENV['winrm_user'] %>
+  password: <%= ENV['winrm_pass'] %>
+  port: <%= ENV['winrm_port'] %>
+
+provisioner:
+  name: chef_solo
+
+suites:
+  - name: install
+    run_list:
+      - recipe[code_deploy::install_agent]
+  - name: install_and_start
+    run_list:
+      - recipe[code_deploy::install_and_start_agent]
+  - name: uninstall
+    run_list:
+      - recipe[code_deploy_test::uninstall_agent]
+  - name: reinstall
+    run_list:
+      - recipe[code_deploy_test::reinstall_agent]
+
+verifier:
+  name: pester

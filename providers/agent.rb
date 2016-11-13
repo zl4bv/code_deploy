@@ -54,15 +54,27 @@ def bucket
 end
 
 def service_name
-  'codedeploy-agent'
+  if node['platform'] == 'windows'
+    'codedeployagent'
+  else
+    'codedeploy-agent'
+  end
 end
 
 def package_name
   'codedeploy-agent'
 end
 
+def installer_file
+  if node['platform'] == 'windows'
+    'codedeploy-agent.msi'
+  else
+    'install'
+  end
+end
+
 def installer_url
-  new_resource.installer_url || "https://#{bucket}.s3.amazonaws.com/latest/install"
+  new_resource.installer_url || "https://#{bucket}.s3.amazonaws.com/latest/#{installer_file}"
 end
 
 def version_url
@@ -70,7 +82,7 @@ def version_url
 end
 
 def installer_path
-  "#{Chef::Config[:file_cache_path]}/code_deploy_installer"
+  "#{Chef::Config[:file_cache_path]}/code_deploy/#{installer_file}"
 end
 
 def install_ruby
@@ -78,31 +90,36 @@ def install_ruby
   when 'debian'
     include_recipe 'apt'
     package 'ruby2.0'
-  when 'rhel'
+  else
     package 'ruby'
   end
 end
 
 def install_code_deploy_agent
-  install_ruby
+  if node['platform'] == 'windows'
+    windows_package installer_url
+  else
+    install_ruby
 
-  proxy_arg = "--proxy #{new_resource.http_proxy}" unless new_resource.http_proxy.nil?
+    directory ::File.dirname(installer_path)
 
-  install_command = [installer_path, proxy_arg, 'auto'].compact.join(' ')
+    remote_file installer_path do
+      source installer_url
+      mode '0755'
+      sensitive true
+      not_if { up_to_date }
+    end
 
-  remote_file installer_path do
-    source installer_url
-    mode '0755'
-    sensitive true
-    not_if { up_to_date }
-  end
+    proxy_arg = "--proxy #{new_resource.http_proxy}" unless new_resource.http_proxy.nil?
 
-  execute install_command do
-    not_if { up_to_date }
-  end
+    execute 'Install CodeDeploy agent' do
+      command [installer_path, proxy_arg, 'auto'].compact.join(' ')
+      not_if { up_to_date }
+    end
 
-  file '/etc/cron.d/codedeploy-agent-update' do
-    action :delete
+    file '/etc/cron.d/codedeploy-agent-update' do
+      action :delete
+    end
   end
 end
 
@@ -127,8 +144,12 @@ end
 action :uninstall do
   case node['platform_family']
   when 'debian'
-    dpkg_package 'codedeploy-agent' do
+    dpkg_package package_name do
       action :purge
+    end
+  when 'windows'
+    package installer_url do
+      action :remove
     end
   else
     package package_name do
