@@ -131,7 +131,6 @@ end
 
 action :install do
   install_code_deploy_agent
-  install_code_deploy_agent
 
   service service_name do
     action [:disable, :stop]
