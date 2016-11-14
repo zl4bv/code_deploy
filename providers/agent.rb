@@ -1,3 +1,5 @@
+include ::Chef::Mixin::ShellOut
+
 use_inline_resources
 
 def whyrun_supported?
@@ -11,19 +13,23 @@ end
 def current_version
   case node['platform_family']
   when 'rhel'
-    running_version = `rpm -q codedeploy-agent`
-    running_version.strip
-  when 'debian'
-    running_agent = `dpkg -s codedeploy-agent`
-    running_agent_info = running_agent.split
-    version_index = running_agent_info.index('Version:')
-    if version_index.nil?
+    cmd = shell_out('rpm -q codedeploy-agent')
+    if cmd.error?
       nil
     else
+      cmd.stdout
+    end
+  when 'debian'
+    cmd = shell_out('dpkg -s codedeploy-agent')
+    if cmd.error?
+      nil
+    else
+      running_agent_info = cmd.stdout.split
+      version_index = running_agent_info.index('Version:')
       running_agent_info[version_index + 1]
     end
   else
-    Chef::Application.fatal!("#{node['platform_family']} not supported")
+    raise "#{node['platform_family']} not supported"
   end
 end
 
@@ -124,6 +130,7 @@ def install_code_deploy_agent
 end
 
 action :install do
+  install_code_deploy_agent
   install_code_deploy_agent
 
   service service_name do
