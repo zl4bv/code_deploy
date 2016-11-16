@@ -3,7 +3,7 @@ control 'CodeDeploy' do
   title 'Installing the CodeDeploy Agent'
   desc '
     When the CodeDeploy Agent is installed the service should be installed and
-    stopped
+    running
   '
 
   describe service('codedeploy-agent') do

@@ -1,3 +1,3 @@
 code_deploy_agent 'codedeploy-agent' do
-  action [:install_and_start]
+  action :start
 end

@@ -4,8 +4,7 @@ environment:
   winrm_pass: Pass@word1
   winrm_port: 5985
   matrix:
-    - suite: install-windows
-    - suite: install-and-start-windows
+    - suite: default-windows
     - suite: uninstall-windows
     # TODO: suspect we need to reboot to avoid msiexec.exe 1603 exit code
     # - suite: reinstall-windows

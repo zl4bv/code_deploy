@@ -10,18 +10,18 @@ platforms:
   - name: centos-7.2
 
 suites:
-  - name: install
+  - name: default
     run_list:
-      - recipe[code_deploy::install_agent]
-  - name: install_and_start
-    run_list:
-      - recipe[code_deploy::install_and_start_agent]
+      - recipe[code_deploy::default]
   - name: uninstall
     run_list:
-      - recipe[code_deploy_test::uninstall_agent]
+      - recipe[code_deploy::install_agent]
+      - recipe[code_deploy::uninstall_agent]
   - name: reinstall
     run_list:
-      - recipe[code_deploy::reinstall_agent]
+      - recipe[code_deploy::install_agent]
+      - recipe[code_deploy::uninstall_agent]
+      - recipe[code_deploy::default]
 
 verifier:
   name: inspec

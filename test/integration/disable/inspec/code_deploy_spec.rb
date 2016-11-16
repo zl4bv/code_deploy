@@ -1,6 +1,6 @@
 control 'CodeDeploy' do
   impact 1.0
-  title 'Installing the CodeDeploy Agent'
+  title 'Installing and disabling the CodeDeploy Agent'
   desc '
     When the CodeDeploy Agent is installed the service should be installed and
     stopped

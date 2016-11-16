@@ -8,9 +8,47 @@ This cookbook allow you to install and manage the AWS CodeDeploy agent
 
 ## Requirements
 
-Any version of Linux supported by CodeDeploy
+Any version of Linux or Windows supported by CodeDeploy
 
-## Using
+## Usage
+
+### Recipes
+
+#### default
+
+Installs, enables, and starts the CodeDeploy agent.
+
+#### disable_agent
+
+Disables the CodeDeploy agent
+
+#### enable_agent
+
+Enables the CodeDeploy agent
+
+#### install_agent
+
+Installs the CodeDeploy agent
+
+#### restart_agent
+
+Restarts the CodeDeploy agent
+
+#### start_agent
+
+Starts the CodeDeploy agent
+
+#### stop_agent
+
+Stops the CodeDeploy agent
+
+#### uninstall_agent
+
+Uninstalls the CodeDeploy agent
+
+### Resources and Providers
+
+#### code_deploy_agent
 
 Use the `code_deploy_agent` resource to manage the CodeDeploy agent, all
 attributes are optional.
@@ -20,27 +58,12 @@ codedeploy-agent 'Install and start' do
   http_proxy ENV['http_proxy'] # default
   installer_url 'https://mycache/installer' # use an alternate installer
   version_url 'https://mycache/version' # version manifest for the installer_url
-  action :install_and_start # default, also supports:
-                            #  :install, installs the agent in a disabled state
-                            #  :uninstall
-                            #  :start
-                            #  :stop
-                            #  :restart
-                            #  :enable
-                            #  :disable
-
+  action [:install, :enable, :start] # default, also supports:
+                                     #  :disable
+                                     #  :restart
+                                     #  :stop
+                                     #  :uninstall
 end
-```
-
-Or simply add one of the recipes to your run list.
-
-```json
-{
-  "run_list": [
-    "recipe[code_deploy::install_agent]",
-    "recipe[code_deploy::install_and_start_agent]",
-  ]
-}
 ```
 
 ## Contributing

@@ -3,11 +3,11 @@ Describe "codedeployagent service" {
         (Get-Service codedeployagent).length | Should Be 1
     }
 
-    It "is stopped" {
-        (Get-Service codedeployagent).status | Should Be "Stopped"
+    It "is started" {
+        (Get-Service codedeployagent).status | Should Be "Running"
     }
 
-    It "is disabled" {
-        (Get-Service codedeployagent).StartType | Should Be "Disabled"
+    It "is enabled" {
+        (Get-Service codedeployagent).StartType | Should Be "Automatic"
     }
 }
