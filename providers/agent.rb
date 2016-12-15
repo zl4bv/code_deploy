@@ -92,9 +92,10 @@ def installer_path
 end
 
 def install_ruby
-  case node['platform_family']
-  when 'debian'
-    include_recipe 'apt'
+  include_recipe 'apt'
+
+  if node['platform'] == 'ubuntu' &&
+     node['platform_version'].split('.').first.to_i <= 14
     package 'ruby2.0'
   else
     package 'ruby'
