@@ -20,14 +20,11 @@ codedeploy-agent 'Install and start' do
   http_proxy ENV['http_proxy'] # default
   installer_url 'https://mycache/installer' # use an alternate installer
   version_url 'https://mycache/version' # version manifest for the installer_url
-  action :install_and_start # default, also supports:
-                            #  :install, installs the agent in a disabled state
-                            #  :uninstall
-                            #  :start
-                            #  :stop
-                            #  :restart
-                            #  :enable
-                            #  :disable
+  action [:install, :enable, :start] # default, also supports:
+                                     #  :uninstall
+                                     #  :stop
+                                     #  :restart
+                                     #  :disable
 
 end
 ```
@@ -37,8 +34,14 @@ Or simply add one of the recipes to your run list.
 ```json
 {
   "run_list": [
+    "recipe[code_deploy::default]",
+    "recipe[code_deploy::disable_agent]",
+    "recipe[code_deploy::enable_agent]",
     "recipe[code_deploy::install_agent]",
-    "recipe[code_deploy::install_and_start_agent]",
+    "recipe[code_deploy::restart_agent]",
+    "recipe[code_deploy::start_agent]",
+    "recipe[code_deploy::stop_agent]",
+    "recipe[code_deploy::uninstall_agent]",
   ]
 }
 ```

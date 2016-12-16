@@ -16,18 +16,13 @@ provisioner:
   name: chef_solo
 
 suites:
-  - name: install
+  - name: default
     run_list:
-      - recipe[code_deploy::install_agent]
-  - name: install_and_start
-    run_list:
-      - recipe[code_deploy::install_and_start_agent]
+      - recipe[code_deploy]
   - name: uninstall
     run_list:
+      - recipe[code_deploy]
       - recipe[code_deploy_test::uninstall_agent]
-  - name: reinstall
-    run_list:
-      - recipe[code_deploy_test::reinstall_agent]
 
 verifier:
   name: pester

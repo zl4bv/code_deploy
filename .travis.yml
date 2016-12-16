@@ -21,15 +21,9 @@ deploy:
     condition: $SUITE = unit
 env:
   - SUITE=unit
-  - SUITE=install-centos-72
-  - SUITE=install-ubuntu-1404
-  - SUITE=install-ubuntu-1604
-  - SUITE=install-and-start-centos-72
-  # TODO: These two tests fail on travis
-  # - SUITE=install-and-start-ubuntu-1404
-  - SUITE=install-and-start-ubuntu-1604
+  - SUITE=default-centos-72
+  - SUITE=default-ubuntu-1404
+  - SUITE=default-ubuntu-1604
   - SUITE=uninstall-centos-72
-  # - SUITE=uninstall-ubuntu-1404
+  - SUITE=uninstall-ubuntu-1404
   - SUITE=uninstall-ubuntu-1604
-  - SUITE=reinstall-centos-72
-  - SUITE=reinstall-ubuntu-1404

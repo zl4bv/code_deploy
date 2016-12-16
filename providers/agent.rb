@@ -1,3 +1,5 @@
+require 'chef/version_constraint'
+
 include ::Chef::Mixin::ShellOut
 
 use_inline_resources
@@ -95,7 +97,7 @@ def install_ruby
   include_recipe 'apt'
 
   if node['platform'] == 'ubuntu' &&
-     node['platform_version'].split('.').first.to_i <= 14
+     Chef::VersionConstraint.new('< 15.0').include?(node['platform_version'])
     package 'ruby2.0'
   else
     package 'ruby'
@@ -132,20 +134,6 @@ end
 
 action :install do
   install_code_deploy_agent
-
-  service service_name do
-    action [:disable, :stop]
-    retries 2
-  end
-end
-
-action :install_and_start do
-  install_code_deploy_agent
-
-  service service_name do
-    action [:enable, :start]
-    retries 2
-  end
 end
 
 action :uninstall do
