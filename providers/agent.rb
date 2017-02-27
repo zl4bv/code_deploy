@@ -132,6 +132,11 @@ def install_code_deploy_agent
   end
 end
 
+def systemd?
+  cmd = shell_out('systemctl | grep "\-\.mount"')
+  !cmd.error?
+end
+
 action :install do
   install_code_deploy_agent
 end
@@ -150,6 +155,12 @@ action :uninstall do
     package package_name do
       action :remove
     end
+  end
+
+  # systemd isn't reloaded after RPM removes the service unit from disk
+  execute 'Reload systemd' do
+    command 'systemctl daemon-reload'
+    only_if { systemd? }
   end
 end
 
