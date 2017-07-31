@@ -62,7 +62,7 @@ Or simply add one of the recipes to your run list.
 Author: Henry Muru Paenga (meringu@gmail.com)
 
 ```
-Copyright 2016 Henry Muru Paenga <meringu@gmail.com>
+Copyright 2017 Henry Muru Paenga <meringu@gmail.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
