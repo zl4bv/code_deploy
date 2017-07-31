@@ -6,7 +6,13 @@ control 'CodeDeploy' do
     stopped
   '
 
-  describe service('codedeploy-agent') do
-    it { should_not be_installed }
+  if os.windows?
+    describe service('codedeployagent') do
+      it { should_not be_installed }
+    end
+  else
+    describe service('codedeploy-agent') do
+      it { should_not be_installed }
+    end
   end
 end

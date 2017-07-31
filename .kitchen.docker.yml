@@ -9,6 +9,8 @@ provisioner:
 platforms:
   - name: ubuntu-14.04
   - name: ubuntu-16.04
+    driver_config:
+      run_command: /sbin/init
   - name: centos-7.2
     driver_config:
       run_command: /usr/sbin/init

@@ -13,7 +13,7 @@ install:
   - choco install -y chefdk
   - refreshenv
   - set KITCHEN_YAML=.kitchen.appveyor.yml
-  - chef exec bundle
+  - chef gem install kitchen-local kitchen-pester
 
 build: off
 
