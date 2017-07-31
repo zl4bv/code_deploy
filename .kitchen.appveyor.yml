@@ -25,4 +25,4 @@ suites:
       - recipe[code_deploy_test::uninstall_agent]
 
 verifier:
-  name: pester
+  name: inspec
